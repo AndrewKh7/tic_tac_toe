@@ -6,6 +6,10 @@ public class Router {
     }
 
     public void createFirstWindow(){
-        windowFactory.MainWindow();
+        windowFactory.createtMainWindow();
+    }
+
+    public void createSettingsWindow(){
+        windowFactory.createSettingsWindow();
     }
 }

@@ -1,5 +1,7 @@
 import engine.IEngine;
 import settings.SettingService;
+import windows.MainWindow;
+import windows.SettingsWindow;
 
 public class WindowFactory {
     private IEngine engine;
@@ -10,7 +12,11 @@ public class WindowFactory {
         this.settingsService = settingsService;
     }
 
-    public void MainWindow() {
+    public void createtMainWindow() {
+        MainWindow mainWin = new MainWindow(engine,settingsService);
+    }
 
+    public void createSettingsWindow(){
+        SettingsWindow settingsWin = new SettingsWindow(settingsService);
     }
 }

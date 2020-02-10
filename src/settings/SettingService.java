@@ -1,6 +1,7 @@
 package settings;
 
-public class SettingService implements ISetSettings, IGetSettings {
+public class SettingService implements ISettingsService, IGetSettings {
     public SettingService() {
+
     }
 }

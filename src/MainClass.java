@@ -14,5 +14,6 @@ public class MainClass {
         Router router = new Router(winFactory);
 
         router.createFirstWindow();
+        router.createSettingsWindow();
     }
 }
