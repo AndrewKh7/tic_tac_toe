@@ -10,4 +10,7 @@ public class WindowFactory {
         this.settingsService = settingsService;
     }
 
+    public void MainWindow() {
+
+    }
 }

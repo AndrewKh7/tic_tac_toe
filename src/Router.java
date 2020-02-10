@@ -4,4 +4,8 @@ public class Router {
     public Router(WindowFactory windowFactory) {
         this.windowFactory = windowFactory;
     }
+
+    public void createFirstWindow(){
+        windowFactory.MainWindow();
+    }
 }
