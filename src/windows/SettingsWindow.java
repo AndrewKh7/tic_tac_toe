@@ -3,6 +3,8 @@ package windows;
 import settings.ISettingsService;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class SettingsWindow extends JFrame {
@@ -12,6 +14,12 @@ public class SettingsWindow extends JFrame {
     private static final int WIN_HEIGHT = 260;
     private static final int WIN_WIDTH = 350;
 
+    //Game default parameters
+    private static final int FIELD_MAX_SIZE = 10;
+    private static final int FIELD_MIN_SIZE = 3;
+    private static final int WINNING_LENGTH_MAX = FIELD_MAX_SIZE;
+    private static final int WINNING_LENGTH_MIN = FIELD_MIN_SIZE;
+
     private ISettingsService settings;
 
     //Radio button elements
@@ -20,8 +28,8 @@ public class SettingsWindow extends JFrame {
     private ButtonGroup buttonGroupGameMode = new ButtonGroup();
 
     //Slider elements
-    private JSlider fieldSizeSlider = new JSlider(0,10,0);
-    private JSlider winningLengthSlider = new JSlider(0,10,0);
+    private JSlider fieldSizeSlider = new JSlider(FIELD_MIN_SIZE, FIELD_MAX_SIZE, FIELD_MIN_SIZE);
+    private JSlider winningLengthSlider = new JSlider(WINNING_LENGTH_MIN, WINNING_LENGTH_MAX, WINNING_LENGTH_MIN);
 
     //Panels elements
     JPanel settingsPanel = new JPanel(new GridLayout(10,1));
@@ -32,11 +40,9 @@ public class SettingsWindow extends JFrame {
 
         setWindowSettings();
         addSwitchModeRadioButton();
-//        add(new JPanel());  //just for indentation
         addFieldAndWinSliders();
-//        add(new JPanel());  //just for indentation
         addOKButton();
-        
+
         add(okButtonPanel, BorderLayout.SOUTH);
         add(settingsPanel, BorderLayout.NORTH);
         setVisible(true);
@@ -68,13 +74,34 @@ public class SettingsWindow extends JFrame {
     }
 
     private void addFieldAndWinSliders() {
-        JLabel fieldSizeLabel = new JLabel("Field Size: 0");
-        JLabel winningLengthLabel = new JLabel("Winning length: 0");
+        String fieldTextLabel = "Field Size: ";
+        String winningTextLabel = "Winnings length: ";
+
+        JLabel fieldSizeLabel = new JLabel(fieldTextLabel + 0);
+        JLabel winningLengthLabel = new JLabel(winningTextLabel + 0);
 
         settingsPanel.add(fieldSizeLabel);
         settingsPanel.add(fieldSizeSlider);
         settingsPanel.add(winningLengthLabel);
         settingsPanel.add(winningLengthSlider);
+
+        /*--- CAllBack Function ----*/
+        fieldSizeSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                int currentVal = fieldSizeSlider.getValue();
+                fieldSizeLabel.setText(fieldTextLabel + currentVal);
+                winningLengthSlider.setMaximum(currentVal);
+                winningLengthLabel.setText(winningTextLabel + winningLengthSlider.getValue());
+            }
+        });
+
+        winningLengthSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                winningLengthLabel.setText(winningTextLabel + winningLengthSlider.getValue());
+            }
+        });
     }
 
     private void addOKButton() {
