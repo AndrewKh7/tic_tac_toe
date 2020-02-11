@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class SettingsWindow extends JFrame {
@@ -121,6 +123,21 @@ public class SettingsWindow extends JFrame {
     private void addOKButton() {
         okButton.setPreferredSize(new Dimension(100,25));
         okButtonPanel.add(okButton);
+
+        /*--- Callback functions ---*/
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                settings.setFieldSize( fieldSizeSlider.getValue());
+                settings.setWinningLength( winningLengthSlider.getValue());
+                if ( jRadioButtonHumanVsHuman.isSelected())
+                    settings.setHumanVsHumanMode();
+                else
+                    settings.setHumanVsAiMode();
+                System.out.println(settings.toString());
+            }
+        });
     }
 }
 
