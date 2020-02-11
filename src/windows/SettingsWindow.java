@@ -1,11 +1,13 @@
 package windows;
 
+import settings.GameSettings;
 import settings.ISettingsService;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.Arrays;
 
 public class SettingsWindow extends JFrame {
     //TODO: New window must be create at the center of MainWindow. (oprional)
@@ -14,29 +16,42 @@ public class SettingsWindow extends JFrame {
     private static final int WIN_HEIGHT = 260;
     private static final int WIN_WIDTH = 350;
 
-    //Game default parameters
-    private static final int FIELD_MAX_SIZE = 10;
-    private static final int FIELD_MIN_SIZE = 3;
-    private static final int WINNING_LENGTH_MAX = FIELD_MAX_SIZE;
-    private static final int WINNING_LENGTH_MIN = FIELD_MIN_SIZE;
-
     private ISettingsService settings;
 
     //Radio button elements
-    private JRadioButton jRadioButtonHumanVsHuman = new JRadioButton("Human vs AI", true); //selected default
-    private JRadioButton jRadioButtonHumanVsAI = new JRadioButton("Human vs Human");
-    private ButtonGroup buttonGroupGameMode = new ButtonGroup();
+    private JRadioButton jRadioButtonHumanVsHuman ;
+    private JRadioButton jRadioButtonHumanVsAI ;
+    private ButtonGroup buttonGroupGameMode ;
 
     //Slider elements
-    private JSlider fieldSizeSlider = new JSlider(FIELD_MIN_SIZE, FIELD_MAX_SIZE, FIELD_MIN_SIZE);
-    private JSlider winningLengthSlider = new JSlider(WINNING_LENGTH_MIN, WINNING_LENGTH_MAX, WINNING_LENGTH_MIN);
+    private JSlider fieldSizeSlider ;
+    private JSlider winningLengthSlider ;
 
     //Panels elements
-    JPanel settingsPanel = new JPanel(new GridLayout(10,1));
-    JPanel okButtonPanel = new JPanel(new FlowLayout());
+    private JPanel settingsPanel ;
+    private JPanel okButtonPanel ;
+
+    //Buttons
+    private JButton okButton;
 
     public SettingsWindow(ISettingsService settings) {
         this.settings = settings;
+
+        //Radio button elements
+        this.jRadioButtonHumanVsHuman = new JRadioButton("Human vs Human"); //selected default
+        this.jRadioButtonHumanVsAI = new JRadioButton("Human vs AI",true );
+        this.buttonGroupGameMode = new ButtonGroup();
+
+        //Slider elements
+        this.fieldSizeSlider = new JSlider(GameSettings.MIN_SIZE, GameSettings.MAX_SIZE, GameSettings.MIN_SIZE);
+        this.winningLengthSlider = new JSlider(GameSettings.MIN_SIZE, GameSettings.MIN_SIZE,GameSettings.MIN_SIZE);
+
+        //Panels elements
+        this.settingsPanel = new JPanel(new GridLayout(7,1));
+        this.okButtonPanel = new JPanel(new FlowLayout());
+
+        //Buttons
+        okButton = new JButton("OK");
 
         setWindowSettings();
         addSwitchModeRadioButton();
@@ -60,7 +75,6 @@ public class SettingsWindow extends JFrame {
 
         setBounds(x, y, WIN_WIDTH, WIN_HEIGHT);
         getRootPane().setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//        setLayout(new GridLayout(10,1));
         setResizable(false);
     };
 
@@ -75,10 +89,10 @@ public class SettingsWindow extends JFrame {
 
     private void addFieldAndWinSliders() {
         String fieldTextLabel = "Field Size: ";
-        String winningTextLabel = "Winnings length: ";
+        String winningTextLabel = "Winning length: ";
 
-        JLabel fieldSizeLabel = new JLabel(fieldTextLabel + 0);
-        JLabel winningLengthLabel = new JLabel(winningTextLabel + 0);
+        JLabel fieldSizeLabel = new JLabel(fieldTextLabel + GameSettings.MIN_SIZE);
+        JLabel winningLengthLabel = new JLabel(winningTextLabel + GameSettings.MIN_SIZE);
 
         settingsPanel.add(fieldSizeLabel);
         settingsPanel.add(fieldSizeSlider);
@@ -105,7 +119,6 @@ public class SettingsWindow extends JFrame {
     }
 
     private void addOKButton() {
-        JButton okButton = new JButton("OK");
         okButton.setPreferredSize(new Dimension(100,25));
         okButtonPanel.add(okButton);
     }
