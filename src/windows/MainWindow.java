@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
 public class MainWindow extends JFrame {
     // TODO: Create another file or class with setting for all windows.(But is it necessary?)
     // TODO: Create new settings window must block this window (not visible or  not clickable)
