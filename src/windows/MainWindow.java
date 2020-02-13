@@ -1,14 +1,18 @@
 package windows;
 
 import engine.IEngine;
+import factory.IRouter;
+import factory.Router;
 import settings.IGetSettings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class MainWindow extends JFrame  implements SettingsWindowCloseHandler{
+public class MainWindow extends JFrame {
     // TODO: Create another file or class with setting for all windows.(But is it necessary?)
     // TODO: Create new settings window must block this window (not visible or  not clickable)
     // TODO: Create Ctrl+Q handler. (optional)
@@ -19,10 +23,12 @@ public class MainWindow extends JFrame  implements SettingsWindowCloseHandler{
 
     private IEngine  engine;
     private IGetSettings settings;
+    private IRouter router;
 
-    public MainWindow(IEngine engine, IGetSettings settings) {
+    public MainWindow(IEngine engine, IGetSettings settings, IRouter router) {
         this.engine = engine;
         this.settings = settings;
+        this.router = router;
 
         setWindowSettings();
         addButtons();
@@ -55,6 +61,23 @@ public class MainWindow extends JFrame  implements SettingsWindowCloseHandler{
         buttonsPanel.add(startButton);
         buttonsPanel.add(exitButton);
         add(buttonsPanel, BorderLayout.SOUTH);
+
+        /*--- Handlers ---*/
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                router.createSettingsWindow(() ->{
+                    System.out.println("Main Window got: " + settings.toString());
+                });
+
+            }
+        });
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
     }
 
 }

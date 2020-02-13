@@ -9,11 +9,11 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class SettingsWindow extends JFrame {
     //TODO: New window must be create at the center of MainWindow. (oprional)
 
+    private SettingsWindowCloseHandler handler;
     // Window parameters
     private static final int WIN_HEIGHT = 260;
     private static final int WIN_WIDTH = 350;
@@ -38,6 +38,7 @@ public class SettingsWindow extends JFrame {
 
     public SettingsWindow(ISettingsService settings) {
         this.settings = settings;
+        setHandler(()->{});
 
         //Radio button elements
         this.jRadioButtonHumanVsHuman = new JRadioButton("Human vs Human"); //selected default
@@ -101,7 +102,7 @@ public class SettingsWindow extends JFrame {
         settingsPanel.add(winningLengthLabel);
         settingsPanel.add(winningLengthSlider);
 
-        /*--- CAllBack Function ----*/
+        /*--- Handler ----*/
         fieldSizeSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
@@ -124,7 +125,7 @@ public class SettingsWindow extends JFrame {
         okButton.setPreferredSize(new Dimension(100,25));
         okButtonPanel.add(okButton);
 
-        /*--- Callback functions ---*/
+        /*--- Handler ---*/
 
         okButton.addActionListener(new ActionListener() {
             @Override
@@ -136,8 +137,14 @@ public class SettingsWindow extends JFrame {
                 else
                     settings.setHumanVsAiMode();
                 System.out.println(settings.toString());
+                handler.closeHandler();
+                dispose();
             }
         });
+    }
+
+    public void setHandler(SettingsWindowCloseHandler handel){
+        this.handler = handel;
     }
 }
 

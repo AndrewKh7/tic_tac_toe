@@ -12,7 +12,7 @@ public class GameSettings implements Cloneable{
 
     private int fieldSize = MIN_SIZE;
     private int winningLength = MIN_SIZE;
-    private Mode HumanVsHumanMode = Mode.humanVsAI;
+    private Mode mode = Mode.humanVsAI;
 
     public GameSettings(int fieldSize, int winningLength){
         this.fieldSize = fieldSize;
@@ -22,7 +22,7 @@ public class GameSettings implements Cloneable{
     public  GameSettings(int fieldSize, int winningLength, Mode mode){
         this.fieldSize = fieldSize;
         this.winningLength = winningLength;
-        this.HumanVsHumanMode = mode;
+        this.mode = mode;
     }
 
     public boolean initialized(){
@@ -42,7 +42,7 @@ public class GameSettings implements Cloneable{
     }
 
     public Mode isHumanVsHumanMode() {
-        return HumanVsHumanMode;
+        return mode;
     }
 
     public void setFieldSize(int fieldSize) {
@@ -64,7 +64,7 @@ public class GameSettings implements Cloneable{
     }
 
     public void setMode(Mode humanVsHumanMode) {
-        HumanVsHumanMode = humanVsHumanMode;
+        mode = humanVsHumanMode;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class GameSettings implements Cloneable{
         return "GameSettings{" +
                 "fieldSize=" + fieldSize +
                 ", winningLength=" + winningLength +
-                ", HumanVsHumanMode=" + HumanVsHumanMode +
+                ", mode=" + mode +
                 '}';
     }
 }
