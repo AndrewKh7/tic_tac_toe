@@ -31,17 +31,20 @@ public class SettingService implements ISettingsService, IGetSettings {
 
     @Override
     public int getFieldSize() {
-        return 0;
+        return gameSettings.getFieldSize();
     }
 
     @Override
     public int getWinningLength() {
-        return 0;
+        return gameSettings.getWinningLength();
     }
 
     @Override
-    public int isHumanVsHumanMode() {
-        return 0;
+    public boolean isHumanVsHumanMode() {
+        if (gameSettings.isHumanVsHumanMode() == Mode.humanVsHuman)
+            return true;
+        else
+            return false;
     }
 
     @Override

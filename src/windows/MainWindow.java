@@ -26,12 +26,15 @@ public class MainWindow extends JFrame {
     private IGetSettings settings;
     private IRouter router;
 
+    private MapPanel map;
+
     public MainWindow(IEngine engine, IGetSettings settings, IRouter router) {
         this.engine = engine;
         this.settings = settings;
         this.router = router;
 
         setWindowSettings();
+        addMap();
         addButtons();
 
         setVisible(true);
@@ -53,6 +56,11 @@ public class MainWindow extends JFrame {
         getRootPane().setBorder(BorderFactory.createEmptyBorder(5, 5, 2, 5));
     }
 
+    private void addMap(){
+        this.map = new MapPanel(settings);
+        add(map);
+    }
+
     private void addButtons(){
         JButton startButton = new JButton("Start");
         JButton exitButton = new JButton("Exit");
@@ -69,6 +77,9 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 router.createSettingsWindow(() ->{
                     System.out.println("Main Window got: " + settings.toString());
+                    map.initialize((x,y)->{
+                        System.out.println("x: " + x + " y: " + y);
+                    });
                 });
 
             }
