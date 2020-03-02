@@ -16,8 +16,8 @@ public class MainClass {
     // TODO: Maybe create all the windows together and set visible = false? Factory just will make them visible.
 
     public static void main(String[] args)  {
-        IEngine engine = new Engine();
         SettingService settingsService = new SettingService();
+        IEngine engine = new Engine(settingsService);
         WindowFactory winFactory = new WindowFactory(engine, settingsService);
         Router router = new Router(winFactory);
 
