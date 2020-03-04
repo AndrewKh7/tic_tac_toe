@@ -30,6 +30,26 @@ public class SettingService implements ISettingsService, IGetSettings {
     }
 
     @Override
+    public void setPlayer1Sym(char sym) {
+        gameSettings.setPlayer1(sym);
+    }
+
+    @Override
+    public void setPlayer2Sym(char sym) {
+        gameSettings.setPlayer2(sym);
+    }
+
+    @Override
+    public char getPlayer1Sym() {
+        return gameSettings.getPlayer1();
+    }
+
+    @Override
+    public char getPlayer2Sym() {
+        return gameSettings.getPlayer2();
+    }
+
+    @Override
     public int getFieldSize() {
         return gameSettings.getFieldSize();
     }

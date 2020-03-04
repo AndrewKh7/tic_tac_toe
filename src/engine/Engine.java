@@ -9,35 +9,53 @@ public class Engine implements IEngine {
     char player2;
     boolean initialized = false;
     char whoseMove;
+    AIInterface aiPlayer;
 
     public Engine(IGetSettings settings){
        this.settings = settings;
-       this.player1 = 'x';
-       this.player2 = 'y';
+       this.player1 = this.settings.getPlayer1Sym();
+       this.player2 = this.settings.getPlayer2Sym();
+       this.whoseMove = this.player1;
     }
 
     @Override
     public void initGame() {
         this.field = new Field(settings.getFieldSize(), settings.getWinningLength(),player1,player2);
+       if( !settings.isHumanVsHumanMode() )
+           this.aiPlayer = new AI(this.field);
+       else
+           this .aiPlayer = null;
 
         this.initialized = true;
     }
 
     @Override
-    public status userMove(int x, int y) {
-        status ret = status.failed;
-        if(!this.initialized)
-            return status.notInitialized;
+    public ActionStatus playerMove(int x, int y) {
+        if(!this.initialized) return ActionStatus.notInitialized;
 
-        if( !this.field.tryMove(x,y) ) return status.failed;
-        if( this.field.checkWin(player1) ) return status.winPlayer1;
+        ActionStatus ret = this.field.tryMove(x,y, this.whoseMove);
 
-        return null;
+        if(ret == ActionStatus.failed) return ret;
+
+        if(this.whoseMove == player1 )
+            this.whoseMove = player2;
+        else
+            this.whoseMove = player1;
+
+        // ret is no ActionStatus.field and ActionStatus.notInitialized
+        if(ret != ActionStatus.success) return ret;
+
+        if( this.aiPlayer != null && this.whoseMove == player2)
+           do{
+               ret = playerMove( aiPlayer.nextTurn() );
+           }while(ret == ActionStatus.failed);
+
+   return ret;
     }
 
     @Override
-    public status userMove(XYPair xyPair) {
-        return null;
+    public ActionStatus playerMove(XYPair xyPair) {
+        return playerMove(xyPair.x,xyPair.y);
     }
 
     @Override
@@ -52,7 +70,8 @@ public class Engine implements IEngine {
 
     @Override
     public void update(int x, int y) {
-        System.out.println("x: " + x + " y: " + y);
+//        System.out.println("x: " + x + " y: " + y);
+        System.out.println(playerMove(x,y));
     }
 
 }

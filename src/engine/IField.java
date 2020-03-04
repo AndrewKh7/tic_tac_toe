@@ -1,8 +1,7 @@
 package engine;
 
 public interface IField {
-    boolean tryMove(XYPair xyPair);
-    boolean tryMove(int x, int y);
-
-    boolean checkWin(char player1);
+    ActionStatus tryMove(XYPair xyPair, char player);
+    ActionStatus tryMove(int x, int y,char player);
+    int getFieldSize();
 }

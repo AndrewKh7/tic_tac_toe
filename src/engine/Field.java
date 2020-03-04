@@ -21,17 +21,23 @@ public class Field implements IField{
 
 
     @Override
-    public boolean tryMove(XYPair xyPair) {
+    public ActionStatus tryMove(XYPair xyPair, char player) {
+        return tryMove(xyPair.x,xyPair.y, player);
+    }
+
+    @Override
+    public ActionStatus tryMove(int x, int y, char player) {
+        this.checkWin(player);
+        System.out.println("Plyaer: " + player + " x:" + x + " y:" + y);
+        return ActionStatus.success;
+    }
+
+    private boolean checkWin(char player) {
         return false;
     }
 
     @Override
-    public boolean tryMove(int x, int y) {
-        return false;
-    }
-
-    @Override
-    public boolean checkWin(char player1) {
-        return false;
+    public int getFieldSize() {
+        return field.length;
     }
 }

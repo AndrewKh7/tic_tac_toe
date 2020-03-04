@@ -8,4 +8,7 @@ public interface ISettingsService extends IGetSettings {
      void setWinningLength(int len);
      void setHumanVsAiMode();
      void setHumanVsHumanMode();
+     void setPlayer1Sym(char sym);
+     void setPlayer2Sym(char sym);
+
 }
