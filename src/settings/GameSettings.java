@@ -12,6 +12,8 @@ public class GameSettings implements Cloneable{
 
     private int fieldSize = MIN_SIZE;
     private int winningLength = MIN_SIZE;
+    private char player1 = 'X';
+    private char player2 = 'O';
     private Mode mode = Mode.humanVsAI;
 
     public GameSettings(int fieldSize, int winningLength){
@@ -74,5 +76,21 @@ public class GameSettings implements Cloneable{
                 ", winningLength=" + winningLength +
                 ", mode=" + mode +
                 '}';
+    }
+
+    public char getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(char player1) {
+        this.player1 = player1;
+    }
+
+    public char getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(char player2) {
+        this.player2 = player2;
     }
 }

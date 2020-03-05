@@ -2,15 +2,10 @@ package windows;
 
 import engine.IEngine;
 import factory.IRouter;
-import factory.Router;
 import settings.IGetSettings;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 
 public class MainWindow extends JFrame {
@@ -26,12 +21,15 @@ public class MainWindow extends JFrame {
     private IGetSettings settings;
     private IRouter router;
 
+    private FieldPanel field;
+
     public MainWindow(IEngine engine, IGetSettings settings, IRouter router) {
         this.engine = engine;
         this.settings = settings;
         this.router = router;
 
         setWindowSettings();
+        addMap();
         addButtons();
 
         setVisible(true);
@@ -53,6 +51,11 @@ public class MainWindow extends JFrame {
         getRootPane().setBorder(BorderFactory.createEmptyBorder(5, 5, 2, 5));
     }
 
+    private void addMap(){
+        this.field = new FieldPanel(settings);
+        add(field);
+    }
+
     private void addButtons(){
         JButton startButton = new JButton("Start");
         JButton exitButton = new JButton("Exit");
@@ -64,21 +67,22 @@ public class MainWindow extends JFrame {
         add(buttonsPanel, BorderLayout.SOUTH);
 
         /*--- Handlers ---*/
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                router.createSettingsWindow(() ->{
-                    System.out.println("Main Window got: " + settings.toString());
-                });
+        startButton.addActionListener( event -> startButtonHandler() );
+        exitButton.addActionListener( event -> System.exit(0) );
+    }
 
-            }
+    private void startButtonHandler(){
+        router.createSettingsWindow(() ->{
+            //Close SettingsWindow handler
+            engine.initGame();
+            field.initialize( (x, y) -> mapHandler(x,y) );
         });
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
-            }
-        });
+    }
+
+    private void mapHandler(int x, int y){
+        //Map field click handler
+        engine.update(x,y);
+        field.update(engine.getField());
     }
 
 }

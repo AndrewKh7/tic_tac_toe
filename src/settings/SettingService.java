@@ -30,18 +30,41 @@ public class SettingService implements ISettingsService, IGetSettings {
     }
 
     @Override
+    public void setPlayer1Sym(char sym) {
+        gameSettings.setPlayer1(sym);
+    }
+
+    @Override
+    public void setPlayer2Sym(char sym) {
+        gameSettings.setPlayer2(sym);
+    }
+
+    @Override
+    public char getPlayer1Sym() {
+        return gameSettings.getPlayer1();
+    }
+
+    @Override
+    public char getPlayer2Sym() {
+        return gameSettings.getPlayer2();
+    }
+
+    @Override
     public int getFieldSize() {
-        return 0;
+        return gameSettings.getFieldSize();
     }
 
     @Override
     public int getWinningLength() {
-        return 0;
+        return gameSettings.getWinningLength();
     }
 
     @Override
-    public int isHumanVsHumanMode() {
-        return 0;
+    public boolean isHumanVsHumanMode() {
+        if (gameSettings.isHumanVsHumanMode() == Mode.humanVsHuman)
+            return true;
+        else
+            return false;
     }
 
     @Override

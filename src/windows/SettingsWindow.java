@@ -132,6 +132,8 @@ public class SettingsWindow extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 settings.setFieldSize( fieldSizeSlider.getValue());
                 settings.setWinningLength( winningLengthSlider.getValue());
+                settings.setPlayer1Sym('X');
+                settings.setPlayer2Sym('O');
                 if ( jRadioButtonHumanVsHuman.isSelected())
                     settings.setHumanVsHumanMode();
                 else
