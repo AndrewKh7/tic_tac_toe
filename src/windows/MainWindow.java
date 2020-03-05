@@ -75,7 +75,7 @@ public class MainWindow extends JFrame {
         router.createSettingsWindow(() ->{
             //Close SettingsWindow handler
             engine.initGame();
-            field.initialize(engine.getField(), (x, y) -> mapHandler(x,y) );
+            field.initialize( (x, y) -> mapHandler(x,y) );
         });
     }
 

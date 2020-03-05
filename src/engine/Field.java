@@ -3,8 +3,8 @@ package engine;
 public class Field implements IField{
     char[][] field;
     int windLength;
-    char player1 = 'x';
-    char player2 = 'o';
+    char player1 = 'X';
+    char player2 = 'O';
     XYPair[] history;
 
 
@@ -28,6 +28,7 @@ public class Field implements IField{
     @Override
     public ActionStatus tryMove(int x, int y, char player) {
         this.checkWin(player);
+        this.field[x][y] = player;
         System.out.println("Plyaer: " + player + " x:" + x + " y:" + y);
         return ActionStatus.success;
     }
@@ -43,7 +44,9 @@ public class Field implements IField{
 
     @Override
     public char[][] getfield() {
-        return new char[getFieldSize()][getFieldSize()];
+        char[][] cloneField = new char[getFieldSize()][getFieldSize()];
+        for(int i = 0; i < getFieldSize(); i++ ) cloneField[i] = this.field[i].clone();
+        return cloneField;
     }
 
 }
