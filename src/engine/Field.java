@@ -40,4 +40,10 @@ public class Field implements IField{
     public int getFieldSize() {
         return field.length;
     }
+
+    @Override
+    public char[][] getfield() {
+        return new char[getFieldSize()][getFieldSize()];
+    }
+
 }

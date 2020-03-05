@@ -60,8 +60,9 @@ public class Engine implements IEngine {
 
     @Override
     public char[][] getField() {
-        return new char[0][];
+        return field.getfield();
     }
+
 
     @Override
     public XYPair[] lastMoves() {

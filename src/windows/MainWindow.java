@@ -6,8 +6,6 @@ import settings.IGetSettings;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class MainWindow extends JFrame {
@@ -23,7 +21,7 @@ public class MainWindow extends JFrame {
     private IGetSettings settings;
     private IRouter router;
 
-    private MapPanel fieldMap;
+    private FieldPanel field;
 
     public MainWindow(IEngine engine, IGetSettings settings, IRouter router) {
         this.engine = engine;
@@ -54,8 +52,8 @@ public class MainWindow extends JFrame {
     }
 
     private void addMap(){
-        this.fieldMap = new MapPanel(settings);
-        add(fieldMap);
+        this.field = new FieldPanel(settings);
+        add(field);
     }
 
     private void addButtons(){
@@ -76,14 +74,15 @@ public class MainWindow extends JFrame {
     private void startButtonHandler(){
         router.createSettingsWindow(() ->{
             //Close SettingsWindow handler
-            fieldMap.initialize( (x,y) -> mapHandler(x,y) );
             engine.initGame();
+            field.initialize(engine.getField(), (x, y) -> mapHandler(x,y) );
         });
     }
 
     private void mapHandler(int x, int y){
         //Map field click handler
         engine.update(x,y);
+        field.update(engine.getField());
     }
 
 }
