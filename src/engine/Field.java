@@ -1,11 +1,12 @@
 package engine;
 
 public class Field implements IField{
-    char[][] field;
-    int windLength;
-    char player1 = 'X';
-    char player2 = 'O';
-    XYPair[] history;
+    private char[][] field;
+    private int windLength;
+    private char player1 = 'X';
+    private char player2 = 'O';
+    private int moveCnt;
+    private XYPair[] history;
 
 
     public Field(int width, int height, int windLength){
@@ -27,10 +28,23 @@ public class Field implements IField{
 
     @Override
     public ActionStatus tryMove(int x, int y, char player) {
-        this.checkWin(player);
+        ActionStatus return_val = ActionStatus.failed;
+        if( Character.isLetter(this.field[x][y])) return return_val;
+        return_val = ActionStatus.success;
         this.field[x][y] = player;
+        this.moveCnt++;
+
+        if( this.checkWin(player) )
+            if( player == player1 )
+                return_val = ActionStatus.winPlayer1;
+            else
+                return_val = ActionStatus.winPlayer2;
+
+        if( this.moveCnt >= (field.length * field[0].length) )
+            return_val = ActionStatus.draw;
+
         System.out.println("Plyaer: " + player + " x:" + x + " y:" + y);
-        return ActionStatus.success;
+        return return_val;
     }
 
     private boolean checkWin(char player) {

@@ -26,6 +26,7 @@ public class Engine implements IEngine {
        else
            this .aiPlayer = null;
 
+        this.whoseMove = this.player1;
         this.initialized = true;
     }
 

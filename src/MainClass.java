@@ -6,6 +6,7 @@ import engine.IEngine;
 import engine.Engine;
 import factory.*;
 import settings.SettingService;
+import windows.MessageWindow;
 
 public class MainClass {
 
@@ -21,7 +22,7 @@ public class MainClass {
         WindowFactory winFactory = new WindowFactory(engine, settingsService);
         Router router = new Router(winFactory);
 
+        router.echo("Player1 Win!");
         router.createFirstWindow();
-//        router.createSettingsWindow();
     }
 }

@@ -53,9 +53,9 @@ public class FieldPanel extends JPanel {
         });
     }
 
-    public void initialize( MapClickhandler handler){
+    public void initialize(char[][] field, MapClickhandler handler){
         this.clickHandler = handler;
-
+        this.field = field;
         this.cellHeight = (int)(getHeight() / settings.getFieldSize());
         this.cellWidth = (int) (getWidth() / settings.getFieldSize());
 
@@ -84,7 +84,7 @@ public class FieldPanel extends JPanel {
 
     }
 
-        private void drawinto(int x, int y, char sym, Graphics g){
+    private void drawinto(int x, int y, char sym, Graphics g){
             if(sym == 'X'){
                 g.drawLine( x*this.cellWidth + 10, y*this.cellHeight + 10,
                         (x + 1)*this.cellWidth - 10 , (y + 1)*this.cellHeight - 10);
@@ -97,10 +97,10 @@ public class FieldPanel extends JPanel {
 
         }
 
-        public void update(char[][] field){
+    public void update(char[][] field){
             this.field = field;
             repaint();
         }
 
 
-    }
+}
