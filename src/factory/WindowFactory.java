@@ -3,6 +3,7 @@ package factory;
 import engine.IEngine;
 import settings.SettingService;
 import windows.MainWindow;
+import windows.MessageWindow;
 import windows.SettingsWindow;
 import windows.SettingsWindowCloseHandler;
 
@@ -31,5 +32,9 @@ public class WindowFactory {
     public void  createSettingsWindow(SettingsWindowCloseHandler handler){
         SettingsWindow settingsWin = new SettingsWindow(settingsService);
         settingsWin.setHandler(handler);
+    }
+
+    public void createEchoWindow(String text){
+        MessageWindow msgWin = new MessageWindow(text);
     }
 }

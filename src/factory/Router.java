@@ -21,4 +21,8 @@ public class Router implements  IRouter {
     public void createSettingsWindow(SettingsWindowCloseHandler handler){
         windowFactory.createSettingsWindow(handler);
     }
+
+    public void echo(String text){
+        windowFactory.createEchoWindow(text);
+    }
 }

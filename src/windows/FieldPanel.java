@@ -56,7 +56,6 @@ public class FieldPanel extends JPanel {
     public void initialize(char[][] field, MapClickhandler handler){
         this.clickHandler = handler;
         this.field = field;
-
         this.cellHeight = (int)(getHeight() / settings.getFieldSize());
         this.cellWidth = (int) (getWidth() / settings.getFieldSize());
 
@@ -72,21 +71,20 @@ public class FieldPanel extends JPanel {
     }
 
     private void render(Graphics g){
-        if(this.initialized) {
-            for (int i = 1; i < settings.getFieldSize(); i++) {
-                g.drawLine(0, i * this.cellHeight, getWidth(), i * this.cellHeight);
-                g.drawLine(i * this.cellWidth, 0, i * this.cellWidth, getHeight());
-            }
-            if (this.field != null)
-                for (int i = 0; i < this.field.length; i++) {
-                    for (int j = 0; j < this.field[i].length; j++) {
-                        drawinto(i, j, this.field[i][j], g);
-                    }
-                }
+        for(int i = 1; i < settings.getFieldSize(); i++){
+            g.drawLine(0, i*this.cellHeight, getWidth(), i*this.cellHeight);
+            g.drawLine(i*this.cellWidth,0, i*this.cellWidth,getHeight());
         }
+        if(this.field != null)
+            for (int i = 0; i < this.field.length; i++){
+                for (int j = 0; j < this.field[i].length; j++){
+                    drawinto(i, j, this.field[i][j], g);
+                }
+            }
+
     }
 
-        private void drawinto(int x, int y, char sym, Graphics g){
+    private void drawinto(int x, int y, char sym, Graphics g){
             if(sym == 'X'){
                 g.drawLine( x*this.cellWidth + 10, y*this.cellHeight + 10,
                         (x + 1)*this.cellWidth - 10 , (y + 1)*this.cellHeight - 10);
@@ -99,10 +97,10 @@ public class FieldPanel extends JPanel {
 
         }
 
-        public void update(char[][] field){
+    public void update(char[][] field){
             this.field = field;
             repaint();
         }
 
 
-    }
+}
