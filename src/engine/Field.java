@@ -48,6 +48,34 @@ public class Field implements IField{
     }
 
     private boolean checkWin(char player) {
+        for (int i = 0; i < field.length; i++) {
+            int cnt_hor = 0;
+            int cnt_ver = 0;
+            for (int j = 0; j < field[i].length; j++) {
+                if(field[i][j] == player) ++cnt_hor;
+                if(field[j][i] == player) ++cnt_ver;
+                if(cnt_hor>= this.windLength || cnt_ver >= this.windLength) return true;
+            }
+        }
+        for (int i = 0; i <= (field.length - this.windLength); i++) {
+            if( checkWinDiagоnalLine(0, i, player) || checkWinDiagоnalLine(i, 0, player))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean checkWinDiagоnalLine(int startX, int startY, char player){
+        int lineLength =field.length -  (startX > startY ? startX : startY);
+        int cnt = 0;
+        for (int i = 0; i < lineLength ; ++i) {
+            if(field[i + startX][i + startY] == player) cnt++;
+            if(cnt >= this.windLength) return true;
+        }
+
+        for (int i = 0; i < lineLength ; ++i) {
+            if(field[i + startX][field.length - 1  - i - startY] == player) cnt++;
+            if(cnt >= this.windLength) return true;
+        }
         return false;
     }
 
