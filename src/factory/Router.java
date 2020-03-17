@@ -10,18 +10,22 @@ public class Router implements  IRouter {
         windowFactory.setRouter(this);
     }
 
+    @Override
     public void createFirstWindow(){
         windowFactory.createtMainWindow();
     }
 
+    @Override
     public void createSettingsWindow(){
         windowFactory.createSettingsWindow();
     }
 
+    @Override
     public void createSettingsWindow(SettingsWindowCloseHandler handler){
         windowFactory.createSettingsWindow(handler);
     }
 
+    @Override
     public void echo(String text){
         windowFactory.createEchoWindow(text);
     }

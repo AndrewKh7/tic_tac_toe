@@ -1,5 +1,6 @@
 package windows;
 
+import engine.ActionStatus;
 import engine.IEngine;
 import factory.IRouter;
 import settings.IGetSettings;
@@ -81,7 +82,14 @@ public class MainWindow extends JFrame {
 
     private void mapHandler(int x, int y){
         //Map field click handler
-        engine.update(x,y);
+        ActionStatus move = engine.nextTurn(x,y);
+        if(move == ActionStatus.winPlayer1)
+            router.echo("Player 1 Win!");
+        else if( move == ActionStatus.winPlayer2)
+            router.echo("Playe 2 Win!");
+        else if(move == ActionStatus.draw)
+            router.echo("Draw!");
+        
         field.update(engine.getField());
     }
 

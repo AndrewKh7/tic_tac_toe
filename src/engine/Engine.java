@@ -43,8 +43,11 @@ public class Engine implements IEngine {
         else
             this.whoseMove = player1;
 
-        // ret is no ActionStatus.field and ActionStatus.notInitialized
-        if(ret != ActionStatus.success) return ret;
+        // ret is not ActionStatus.field and not ActionStatus.notInitialized
+        if(ret != ActionStatus.success){
+            this.initialized = false;
+            return ret;
+        }
 
         if( this.aiPlayer != null && this.whoseMove == player2)
            do{
@@ -71,9 +74,10 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public void update(int x, int y) {
-//        System.out.println("x: " + x + " y: " + y);
-        System.out.println(playerMove(x,y));
+    public ActionStatus nextTurn(int x, int y) {
+        ActionStatus return_value = playerMove(x,y);
+        System.out.println(return_value);
+        return return_value;
     }
 
 }

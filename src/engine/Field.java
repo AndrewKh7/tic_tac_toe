@@ -71,7 +71,7 @@ public class Field implements IField{
             if(field[i + startX][i + startY] == player) cnt++;
             if(cnt >= this.windLength) return true;
         }
-
+        cnt = 0;
         for (int i = 0; i < lineLength ; ++i) {
             if(field[i + startX][field.length - 1  - i - startY] == player) cnt++;
             if(cnt >= this.windLength) return true;

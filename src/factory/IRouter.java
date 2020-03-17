@@ -6,4 +6,5 @@ public interface IRouter {
     void createFirstWindow();
     void createSettingsWindow();
     void createSettingsWindow(SettingsWindowCloseHandler handler);
+    void echo(String text);
 }

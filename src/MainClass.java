@@ -22,7 +22,6 @@ public class MainClass {
         WindowFactory winFactory = new WindowFactory(engine, settingsService);
         Router router = new Router(winFactory);
 
-        router.echo("Player1 Win!");
         router.createFirstWindow();
     }
 }

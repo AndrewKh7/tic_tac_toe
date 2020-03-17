@@ -6,5 +6,6 @@ public interface IEngine {
     ActionStatus playerMove(XYPair xyPair);
     char[][] getField();
     XYPair[] lastMoves();
-    void update(int x, int y);
-}
+    ActionStatus nextTurn(int x, int y);
+
+    }
