@@ -58,7 +58,7 @@ public class MainWindow extends JFrame {
     }
 
     private void addButtons(){
-        JButton startButton = new JButton("Start");
+        JButton startButton = new JButton("New game");
         JButton exitButton = new JButton("Exit");
         JPanel buttonsPanel = new JPanel(new FlowLayout());
         startButton.setPreferredSize(new Dimension(200,25));

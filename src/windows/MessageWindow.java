@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class MessageWindow extends JFrame {
     // Window parameters
-    private static final int WIN_HEIGHT = 90;
+    private static final int WIN_HEIGHT = 105;
     private static final int WIN_WIDTH = 165;
 
     private String text;
