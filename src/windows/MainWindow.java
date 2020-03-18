@@ -73,8 +73,10 @@ public class MainWindow extends JFrame {
     }
 
     private void startButtonHandler(){
+        this.setEnabled(false);
         router.createSettingsWindow(() ->{
             //Close SettingsWindow handler
+            this.setEnabled(true);
             engine.initGame();
             field.initialize(engine.getField(), (x, y) -> mapHandler(x,y) );
         });
