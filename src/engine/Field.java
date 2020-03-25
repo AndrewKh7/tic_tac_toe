@@ -9,6 +9,21 @@ public class Field implements IField{
     private char player1 = 'X';
     private char player2 = 'O';
     private int moveCnt;
+    private ArrayList<XYPair> history;
+
+    public Field(int width, int height, int windLength){
+        this.field = new char[width][height];
+        this.windLength = windLength;
+        this.history = new ArrayList<>();
+    }
+
+    public Field(int fieldSize, int windLength, char pl1, char pl2){
+        this.field = new char[fieldSize][fieldSize];
+        this.windLength = windLength;
+        this.player1 = pl1;
+        this.player2 = pl2;
+        this.history = new ArrayList<>();
+    }
 
     @Override
     public char getPlayer1() {
@@ -41,24 +56,6 @@ public class Field implements IField{
     public int getWinLength() {
         return this.windLength;
     }
-
-    private ArrayList<XYPair> history;
-
-
-    public Field(int width, int height, int windLength){
-        this.field = new char[width][height];
-        this.windLength = windLength;
-        this.history = new ArrayList<>();
-    }
-
-    public Field(int fieldSize, int windLength, char pl1, char pl2){
-        this.field = new char[fieldSize][fieldSize];
-        this.windLength = windLength;
-        this.player1 = pl1;
-        this.player2 = pl2;
-        this.history = new ArrayList<>();
-    }
-
 
     @Override
     public ActionStatus tryMove(XYPair xyPair, char player) {
@@ -102,9 +99,13 @@ public class Field implements IField{
             int cnt_hor = 0;
             int cnt_ver = 0;
             for (int j = 0; j < field[i].length; j++) {
-                if(field[i][j] == player) ++cnt_hor;
-                if(field[j][i] == player) ++cnt_ver;
-                if(cnt_hor>= this.windLength || cnt_ver >= this.windLength) return true;
+                cnt_hor = field[i][j] == player ? 1+cnt_hor : 0;
+                cnt_ver = field[j][i] == player ? 1+cnt_ver : 0;
+                if(cnt_hor>= this.windLength || cnt_ver >= this.windLength) {
+                    System.out.println("cnt_H:" + cnt_hor + " cnt_V:" + cnt_ver + " i:" + i + " j:" + j);
+                    return true;
+                }
+
             }
         }
         for (int i = 0; i <= (field.length - this.windLength); i++) {
@@ -118,13 +119,20 @@ public class Field implements IField{
         int lineLength =field.length -  (startX > startY ? startX : startY);
         int cnt = 0;
         for (int i = 0; i < lineLength ; ++i) {
-            if(field[i + startX][i + startY] == player) cnt++;
-            if(cnt >= this.windLength) return true;
+            cnt = field[i + startX][i + startY] == player? cnt+1 : 0;
+            if(cnt >= this.windLength) {
+                System.out.println("1 Startx: " + startX + " StartY:" + startY + " cnt: " + cnt);
+                return true;
+            }
+
         }
         cnt = 0;
         for (int i = 0; i < lineLength ; ++i) {
-            if(field[i + startX][field.length - 1  - i - startY] == player) cnt++;
-            if(cnt >= this.windLength) return true;
+            cnt = field[i + startX][field.length - 1  - i - startY] == player? cnt+1 : 0;
+            if(cnt >= this.windLength) {
+                System.out.println("2 Startx: " + startX + " StartY:" + startY + " cnt: " + cnt);
+                return true;
+            }
         }
         return false;
     }
