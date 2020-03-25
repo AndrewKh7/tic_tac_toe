@@ -1,23 +1,62 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Field implements IField{
     private char[][] field;
     private int windLength;
     private char player1 = 'X';
     private char player2 = 'O';
     private int moveCnt;
-    private XYPair[] history;
+
+    @Override
+    public char getPlayer1() {
+        return player1;
+    }
+
+    @Override
+    public char getPlayer2() {
+        return player2;
+    }
+
+    @Override
+    public char getFieldValue(int x, int y) {
+        if( this.field[x][y] != 'X' && this.field[x][y] != 'O' )
+            return '.';
+        else
+            return this.field[x][y];
+    }
+
+    @Override
+    public char getFieldValue(XYPair pair) {
+        if( this.field[pair.x][pair.y] != 'X' && this.field[pair.x][pair.y] != 'O' )
+            return '.';
+        else
+            return this.field[pair.x][pair.y];
+
+    }
+
+    @Override
+    public int getWinLength() {
+        return this.windLength;
+    }
+
+    private ArrayList<XYPair> history;
 
 
     public Field(int width, int height, int windLength){
         this.field = new char[width][height];
         this.windLength = windLength;
+        this.history = new ArrayList<>();
     }
+
     public Field(int fieldSize, int windLength, char pl1, char pl2){
         this.field = new char[fieldSize][fieldSize];
         this.windLength = windLength;
         this.player1 = pl1;
         this.player2 = pl2;
+        this.history = new ArrayList<>();
     }
 
 
@@ -32,6 +71,7 @@ public class Field implements IField{
         if( Character.isLetter(this.field[x][y])) return return_val;
         return_val = ActionStatus.success;
         this.field[x][y] = player;
+        this.history.add(new XYPair(x,y));
         this.moveCnt++;
 
         if( this.checkWin(player) )
@@ -45,6 +85,16 @@ public class Field implements IField{
 
         System.out.println("Plyaer: " + player + " x:" + x + " y:" + y);
         return return_val;
+    }
+
+    @Override
+    public XYPair[] getHistory() {
+        return this.history.toArray(new XYPair[0]).clone();
+    }
+
+    @Override
+    public XYPair getLastInHistory(){
+        return new XYPair(this.history.get( this.history.size()-1));
     }
 
     private boolean checkWin(char player) {

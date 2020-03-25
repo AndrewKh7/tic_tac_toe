@@ -2,6 +2,8 @@ package engine;
 
 import settings.IGetSettings;
 
+import java.util.Arrays;
+
 public class Engine implements IEngine {
     IGetSettings settings;
     IField field;
@@ -48,13 +50,13 @@ public class Engine implements IEngine {
             this.initialized = false;
             return ret;
         }
-
-        if( this.aiPlayer != null && this.whoseMove == player2)
-           do{
-               ret = playerMove( aiPlayer.nextTurn() );
-           }while(ret == ActionStatus.failed);
-
-   return ret;
+        if( this.aiPlayer != null && this.whoseMove == player2) {
+            do{
+                ret = playerMove( aiPlayer.nextTurn() );
+            }while(ret == ActionStatus.failed);
+        }
+        System.out.println(Arrays.toString(this.field.getHistory()));
+        return ret;
     }
 
     @Override

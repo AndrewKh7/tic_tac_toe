@@ -7,6 +7,8 @@ import settings.IGetSettings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 
 public class MainWindow extends JFrame {
@@ -91,7 +93,7 @@ public class MainWindow extends JFrame {
             router.echo("Playe 2 Win!");
         else if(move == ActionStatus.draw)
             router.echo("Draw!");
-        
+
         field.update(engine.getField());
     }
 

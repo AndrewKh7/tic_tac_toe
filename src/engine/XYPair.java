@@ -12,4 +12,12 @@ public class XYPair {
         this.x = p.x;
         this.y = p.y;
     }
+
+    @Override
+    public String toString() {
+        return "XYPair{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }
